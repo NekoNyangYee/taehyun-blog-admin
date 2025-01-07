@@ -9,8 +9,8 @@ export default function Home() {
   const router = useRouter();
   const { isAuthenticated, session, login, logout } = useAuthStore();
 
-  const [isLoading, setIsLoading] = useState(true); // 로딩 상태 관리
-  const [isAuthorized, setIsAuthorized] = useState(false); // 권한 확인 상태
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [isAuthorized, setIsAuthorized] = useState<boolean>(false); // 권한 확인 상태
 
   useEffect(() => {
     const checkSessionAndAdmin = async () => {
@@ -38,10 +38,8 @@ export default function Home() {
               expires_in: sessionData.session.expires_in,
             } as const;
 
-            // 로그인 상태 업데이트
             login(userDataSession, dataSession);
 
-            // 관리자 권한 확인
             const { data: isAdminData, error } = await supabase
               .from("profiles")
               .select("is_admin")
@@ -56,7 +54,6 @@ export default function Home() {
               return;
             }
 
-            // 관리자 권한 확인 완료
             setIsAuthorized(true);
           }
         } else {
@@ -68,20 +65,20 @@ export default function Home() {
         logout();
         router.push("/auth/login");
       } finally {
-        setIsLoading(false); // 로딩 완료
+        setIsLoading(false);
       }
     };
 
     if (!isAuthenticated) {
       checkSessionAndAdmin();
     } else {
-      setIsLoading(false); // 이미 인증된 경우 로딩 해제
+      setIsLoading(false);
     }
   }, [isAuthenticated, login, logout, router]);
 
   // 로딩 중이거나 권한 확인 중인 경우 화면 차단
   if (isLoading || !isAuthorized) {
-    return <p>Loading...</p>; // 로딩 중 표시
+    return <p>Loading...</p>;
   }
 
   const logoutHandler = async () => {

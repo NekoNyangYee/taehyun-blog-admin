@@ -1,7 +1,6 @@
 import { supabase } from "@components/lib/supabaseClient";
-import { UserDataSession, DataSession } from "@components/types/auth";
+import { UserDataSession } from "@components/types/auth";
 import dayjs from "dayjs";
-import { redirect } from "next/navigation";
 
 export const newAddAdmin = async <T extends UserDataSession>(userDataSession: T): Promise<void> => {
     try {
@@ -39,50 +38,5 @@ export const newAddAdmin = async <T extends UserDataSession>(userDataSession: T)
         }
     } catch (err) {
         console.error("newAddAdmin 예외 발생:", err);
-    }
-};
-
-
-export const checkAdmin = async (userDataSession: UserDataSession): Promise<boolean> => {
-    try {
-        // Supabase 쿼리 실행
-        const { data: isAdminData, error } = await supabase
-            .from("profiles")
-            .select("is_admin")
-            .eq("id", userDataSession.id);
-
-        // 에러가 발생하면 로그 출력
-        if (error) {
-            console.error("관리자 체크 쿼리 에러:", error.message);
-            throw new Error("관리자 체크 쿼리 실패");
-        }
-
-        // 로그 출력 (쿼리 결과)
-        console.log("isAdminData 결과:", isAdminData);
-
-        // 데이터가 없거나 잘못된 경우 처리
-        if (!isAdminData || isAdminData.length === 0) {
-            console.error("유저 데이터가 존재하지 않음 또는 잘못된 쿼리.");
-            await supabase.auth.signOut();
-            redirect("/auth/login");
-            return false;
-        }
-
-        // 관리자 여부 확인
-        if (isAdminData[0].is_admin) {
-            console.log("관리자 권한 있음");
-            return true;
-        } else {
-            console.error("관리자 권한 없음");
-            await supabase.auth.signOut();
-            redirect("/auth/login");
-            return false;
-        }
-    } catch (err) {
-        // 예외 처리 및 디버깅 로그
-        console.error("checkAdmin 예외 발생:", err);
-        await supabase.auth.signOut();
-        redirect("/auth/login");
-        return false;
     }
 };

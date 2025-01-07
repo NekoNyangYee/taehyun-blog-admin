@@ -1,12 +1,9 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+
 import { supabase } from "@components/lib/supabaseClient";
-import { newAddAdmin, checkAdmin } from "@components/lib/util/loginUtil";
 
 export default function LoginPage() {
-    const router = useRouter();
-
     const handleSocialLogin = async (provider: "google" | "kakao") => {
         try {
             console.log("소셜 로그인 시작:", provider);
@@ -25,8 +22,6 @@ export default function LoginPage() {
             alert("로그인 중 문제가 발생했습니다. 다시 시도해주세요.");
         }
     };
-
-
 
     return (
         <div>
