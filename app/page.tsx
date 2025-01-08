@@ -47,7 +47,7 @@ export default function Home() {
               .single();
 
             if (error || !isAdminData?.is_admin) {
-              alert("관리자 권한 없음. 로그아웃 처리");
+              alert("해당 계정은 관리자 권한이 없습니다. 로그인 페이지로 돌아갑니다.");
               await supabase.auth.signOut();
               logout();
               router.push("/auth/login");
@@ -60,7 +60,7 @@ export default function Home() {
           router.push("/auth/login");
         }
       } catch (err) {
-        console.error("세션 확인 중 에러:", err);
+        console.log("세션 확인 중 에러:", err);
         await supabase.auth.signOut();
         logout();
         router.push("/auth/login");
