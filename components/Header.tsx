@@ -14,7 +14,7 @@ export default function Header({ session }: HeaderProps) {
             <div className="flex items-center w-full justify-between p-container border-b border-b-slate-containerColor backdrop-blur-md fixed">
                 <LogoIcon />
                 <img
-                    src={session?.user?.user_metadata?.avatar_url || "/user.png"}
+                    src={session?.user?.user_metadata?.avatar_url || null}
                     alt="user"
                     className="w-8 h-8 rounded-full"
                 />
