@@ -1,6 +1,7 @@
 "use client";
 
 import { supabase } from "@components/lib/supabaseClient";
+import { newAddAdmin } from "@components/lib/util/loginUtil";
 import Image from "next/image";
 
 export default function LoginPage() {
@@ -9,13 +10,28 @@ export default function LoginPage() {
             const { error } = await supabase.auth.signInWithOAuth({ provider });
 
             if (error) {
-                console.log("로그인 에러:", error.message);
+                console.error("로그인 에러:", error.message);
                 alert("로그인 실패. 다시 시도해주세요.");
                 return;
             }
 
+            // 로그인 후 사용자 데이터 삽입/업데이트
+            const { data: sessionData } = await supabase.auth.getSession();
+            if (sessionData?.session) {
+                const userData = sessionData.session.user;
+
+                const userDataSession = {
+                    id: userData.id,
+                    name: userData.user_metadata?.full_name || "Unknown User",
+                    profile: userData.user_metadata?.avatar_url || "",
+                    email: userData.email || "",
+                    provider: userData.app_metadata?.provider as "google" | "kakao" || "google",
+                };
+
+                await newAddAdmin(userDataSession);
+            }
         } catch (err) {
-            console.log("handleSocialLogin 에러:", err);
+            console.error("handleSocialLogin 에러:", err);
             alert("로그인 중 문제가 발생했습니다. 다시 시도해주세요.");
         }
     };

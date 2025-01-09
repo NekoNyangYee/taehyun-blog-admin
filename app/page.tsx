@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { supabase } from "@components/lib/supabaseClient";
 import { useAuthStore } from "@components/app/store/authStore";
+import Header from "@components/components/Header";
+import Navbar from "@components/components/Navbar";
 
 export default function Home() {
   const router = useRouter();
@@ -81,22 +83,60 @@ export default function Home() {
     return <p>Loading...</p>;
   }
 
-  const logoutHandler = async () => {
-    await supabase.auth.signOut();
-    logout();
-    router.push("/auth/login");
-  };
-
   return (
     <div>
-      <h1>Home</h1>
-      <img
-        src={session?.user?.profile}
-        alt={session?.user?.name}
-        style={{ maxWidth: "100px", maxHeight: "100px" }}
-      />
-      <p>Welcome, {session?.user?.name}!</p>
-      <button onClick={logoutHandler}>Logout</button>
+      <Header session={session} />
+      <div className="pt-[67px] flex">
+        {/* 네비게이션 바 */}
+        <div className="fixed top-[67px] left-0 w-[240px] h-[calc(100vh-67px)] p-container border-r border-slate-containerColor">
+          <Navbar />
+        </div>
+
+        {/* 메인 콘텐츠 */}
+        <div className="ml-[250px] flex-1 p-4">
+          <h1 className="text-3xl font-bold">Home</h1>
+          <p>Home 페이지 입니다.</p>
+          <p>Home 페이지 입니다.</p>
+          <p>Home 페이지 입니다.</p>
+          <p>Home 페이지 입니다.</p>
+          <p>Home 페이지 입니다.</p>
+          <p>Home 페이지 입니다.</p>
+          <p>Home 페이지 입니다.</p>
+          <p>Home 페이지 입니다.</p>
+          <p>Home 페이지 입니다.</p>
+          <p>Home 페이지 입니다.</p>
+          <p>Home 페이지 입니다.</p>
+          <p>Home 페이지 입니다.</p>
+          <p>Home 페이지 입니다.</p>
+          <p>Home 페이지 입니다.</p>
+          <p>Home 페이지 입니다.</p>
+          <p>Home 페이지 입니다.</p>
+          <p>Home 페이지 입니다.</p>
+          <p>Home 페이지 입니다.</p>
+          <p>Home 페이지 입니다.</p>
+          <p>Home 페이지 입니다.</p>
+          <p>Home 페이지 입니다.</p>
+          <p>Home 페이지 입니다.</p>
+          <p>Home 페이지 입니다.</p>
+          <p>Home 페이지 입니다.</p>
+          <p>Home 페이지 입니다.</p>
+          <p>Home 페이지 입니다.</p>
+          <p>Home 페이지 입니다.</p>
+          <p>Home 페이지 입니다.</p>
+          <p>Home 페이지 입니다.</p>
+          <p>Home 페이지 입니다.</p>
+          <p>Home 페이지 입니다.</p>
+          <p>Home 페이지 입니다.</p>
+          <p>Home 페이지 입니다.</p>
+          <p>Home 페이지 입니다.</p>
+          <p>Home 페이지 입니다.</p>
+          <p>Home 페이지 입니다.</p>
+          <p>Home 페이지 입니다.</p>
+          <p>Home 페이지 입니다.</p>
+          <p>Home 페이지 입니다.</p>
+          <p>Home 페이지 입니다.</p>
+        </div>
+      </div>
     </div>
   );
 }

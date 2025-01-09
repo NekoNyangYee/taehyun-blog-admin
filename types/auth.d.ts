@@ -1,9 +1,9 @@
 export interface UserDataSession {
     id: string;
     name: string;
-    email: string;
+    email?: string;
     profile: string;
-    provider: "google" | "kakao";
+    provider?: "google" | "kakao";
 }
 
 export interface DataSession {

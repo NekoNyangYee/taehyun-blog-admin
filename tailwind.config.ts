@@ -9,9 +9,16 @@ export default {
 	],
 	theme: {
 		extend: {
+			width: {
+				profileImage: "var(--width-profile-image)",
+			},
+			height: {
+				profileImage: "var(--height-profile-image)",
+			},
 			backgroundColor: {
 				kakao: "var(--background-color-kakaologin)",
 				google: "var(--background-color-googlelogin)",
+				navButton: "var(--background-color-nav-button)",
 			},
 			borderColor: {
 				containerColor: "var(--border-color-container)",

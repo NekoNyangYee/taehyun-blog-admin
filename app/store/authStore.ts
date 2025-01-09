@@ -31,7 +31,7 @@ interface AuthStore {
     setUserAuthenticated: (authenticated: boolean) => void;
     login: (user: AuthStore["user"], session: Omit<Session, 'user'>) => void;
     logout: () => void;
-}
+};
 
 export const useAuthStore = create<AuthStore>((set) => ({
     isAuthenticated: false,

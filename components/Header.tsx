@@ -1,9 +1,22 @@
-import React from "react";
+"use client"
 
-export default function Header() {
+import { useAuthStore } from "@components/app/store/authStore";
+import { supabase } from "@components/lib/supabaseClient";
+import React from "react";
+import LogoIcon from "./icons/LogoIcon";
+
+export default function Header({ session }: { session: any }) {
     return (
-        <header>
-            <h1>My Blog</h1>
-        </header>
+        <>
+            <div className="flex items-center w-full justify-between p-container border-b border-b-slate-containerColor backdrop-blur-md fixed">
+                <LogoIcon />
+                <img
+                    src={session?.user?.profile}
+                    alt={session?.user?.name}
+                    className="w-profileImage h-profileImage rounded-full"
+                />
+            </div>
+
+        </>
     );
 }   
