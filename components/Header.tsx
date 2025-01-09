@@ -3,7 +3,6 @@
 import React from "react";
 import LogoIcon from "./icons/LogoIcon";
 import { Session } from "@supabase/supabase-js";
-import Image from "next/image";
 
 interface HeaderProps {
     session: Session | null | undefined; // session은 선택적 prop으로 설정
