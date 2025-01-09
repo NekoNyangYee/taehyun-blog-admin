@@ -1,7 +1,5 @@
 "use client"
 
-import { useAuthStore } from "@components/app/store/authStore";
-import { supabase } from "@components/lib/supabaseClient";
 import React from "react";
 import LogoIcon from "./icons/LogoIcon";
 
