@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { User, Session as SupabaseSession } from "@supabase/supabase-js";
+import { User } from "@supabase/supabase-js";
 
 type Session = {
     user: User;
