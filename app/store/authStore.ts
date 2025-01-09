@@ -1,35 +1,25 @@
 import { create } from "zustand";
+import { User, Session as SupabaseSession } from "@supabase/supabase-js";
 
 type Session = {
-    user: {
-        id: string;
-        name: string;
-        email: string;
-        profile: string;
-        provider: "google" | "kakao";
-    };
+    user: User;
     access_token: string;
     refresh_token: string;
     expires_in: number;
+    token_type: string;
 };
 
 interface AuthStore {
     isAuthenticated: boolean;
     isUserAuthenticated: boolean; // 사용자 인증 상태
     isVerifyingAdmin: boolean; // 관리자 권한 확인 중
-    user: {
-        id: string;
-        name: string;
-        email: string;
-        profile: string;
-        provider: "google" | "kakao";
-    } | null;
+    user: User | null;
     session: Session | null;
     storeSession: (session: Session) => void;
     clearSession: () => void;
     setVerifyingAdmin: (verifying: boolean) => void;
     setUserAuthenticated: (authenticated: boolean) => void;
-    login: (user: AuthStore["user"], session: Omit<Session, 'user'>) => void;
+    login: (user: User, session: Omit<Session, 'user'>) => void;
     logout: () => void;
 };
 
