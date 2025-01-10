@@ -83,7 +83,6 @@ export default function Home() {
 
   return (
     <div>
-      <Header session={session} />
       <div className="pt-[67px] flex">
         <div className="fixed top-[67px] left-0 w-[240px] h-[calc(100vh-67px)] p-container border-r border-slate-containerColor">
           <Navbar />

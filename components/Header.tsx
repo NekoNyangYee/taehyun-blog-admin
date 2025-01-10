@@ -1,28 +1,46 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import LogoIcon from "./icons/LogoIcon";
-import { Session } from "@supabase/supabase-js";
+import { supabase } from "@components/lib/supabaseClient";
 import Image from "next/image";
+import { Session } from "@supabase/supabase-js";
 
-interface HeaderProps {
-    session: Session | null | undefined; // session은 선택적 prop으로 설정
-}
+export default function Header() {
+    const [session, setSession] = useState<Session | null>(null);
 
-export default function Header({ session }: HeaderProps) {
+    useEffect(() => {
+        const fetchSession = async () => {
+            const { data } = await supabase.auth.getSession();
+            setSession(data.session);
+        };
+
+        fetchSession();
+
+        // 세션 변경 이벤트 감지
+        const { data: subscription } = supabase.auth.onAuthStateChange((_event, newSession) => {
+            setSession(newSession);
+        });
+
+        return () => {
+            subscription?.subscription.unsubscribe();
+        };
+    }, []);
+
     return (
-        <>
-            <div className="flex items-center w-full justify-between p-container border-b border-b-slate-containerColor backdrop-blur-md fixed">
-                <LogoIcon />
+        <div className="flex items-center w-full justify-between p-container border-b border-b-slate-containerColor backdrop-blur-md fixed">
+            <LogoIcon />
+            {session?.user?.user_metadata?.avatar_url ? (
                 <Image
-                    src={session?.user?.user_metadata?.avatar_url || null}
+                    src={session.user.user_metadata.avatar_url}
                     alt="user"
                     className="rounded-full"
                     width={34}
                     height={34}
                 />
-            </div>
-
-        </>
+            ) : (
+                <div className="w-[34px] h-[34px] bg-gray-300 rounded-full" />
+            )}
+        </div>
     );
 }

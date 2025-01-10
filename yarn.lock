@@ -595,10 +595,10 @@
   dependencies:
     whatwg-url "^5.0.0"
 
-"@supabase/postgrest-js@1.17.7":
-  version "1.17.7"
-  resolved "https://registry.yarnpkg.com/@supabase/postgrest-js/-/postgrest-js-1.17.7.tgz#2c0cc07c34cfbafcdf15a27e36c42119095ab154"
-  integrity sha512-aOzOYaTADm/dVTNksyqv9KsbhVa1gHz1Hoxb2ZEF2Ed9H7qlWOfptECQWmkEmrrFjtNaiPrgiSaPECvzI/seDA==
+"@supabase/postgrest-js@1.17.10":
+  version "1.17.10"
+  resolved "https://registry.yarnpkg.com/@supabase/postgrest-js/-/postgrest-js-1.17.10.tgz#c3b32c25a34a44fab2c9fc570242d09ae87ca757"
+  integrity sha512-GlcwOjEmPcXfaEU0wHg1MgHU+peR+zZFyaEWjr7a7EOCB1gCtw3nW7ABfnPPH411coXHV90eb/isDgT9HRshLg==
   dependencies:
     "@supabase/node-fetch" "^2.6.14"
 
@@ -619,15 +619,15 @@
   dependencies:
     "@supabase/node-fetch" "^2.6.14"
 
-"@supabase/supabase-js@^2.47.10":
-  version "2.47.10"
-  resolved "https://registry.yarnpkg.com/@supabase/supabase-js/-/supabase-js-2.47.10.tgz#310ce81dc734116f9445dbce7f9341ae1c24d834"
-  integrity sha512-vJfPF820Ho5WILYHfKiBykDQ1SB9odTHrRZ0JxHfuLMC8GRvv21YLkUZQK7/rSVCkLvD6/ZwMWaOAfdUd//guw==
+"@supabase/supabase-js@^2.47.12":
+  version "2.47.12"
+  resolved "https://registry.yarnpkg.com/@supabase/supabase-js/-/supabase-js-2.47.12.tgz#27a0f2fda99ce63eecad8a0c1946b84d680b4637"
+  integrity sha512-My8X5K1KwOBFjQhAqIf7QJaQhP5EILjJwAgjzRNjstlMLJmdVBctwRYD6IGDWKzw+i6/aNGuRd5c9/pI/Y6UFw==
   dependencies:
     "@supabase/auth-js" "2.67.3"
     "@supabase/functions-js" "2.4.4"
     "@supabase/node-fetch" "2.6.15"
-    "@supabase/postgrest-js" "1.17.7"
+    "@supabase/postgrest-js" "1.17.10"
     "@supabase/realtime-js" "2.11.2"
     "@supabase/storage-js" "2.7.1"
 
