@@ -2,9 +2,10 @@
 
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { supabase } from "@components/lib/supabaseClient";
+import { Session } from "@supabase/supabase-js"; // Supabase 타입 임포트
 
 interface SessionContextProps {
-  session: any;
+  session: Session | null; // 정확한 타입으로 변경
   isLoading: boolean;
 }
 
@@ -14,7 +15,7 @@ const SessionContext = createContext<SessionContextProps>({
 });
 
 export function SessionProvider({ children }: { children: React.ReactNode }) {
-  const [session, setSession] = useState<any>(null);
+  const [session, setSession] = useState<Session | null>(null); // 타입 지정
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
