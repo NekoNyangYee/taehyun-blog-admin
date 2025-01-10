@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { supabase } from "@components/lib/supabaseClient";
 import { useAuthStore } from "@components/app/store/authStore";
-import Navbar from "@components/components/Navbar";
 import { User } from "@supabase/supabase-js";
 
 export default function Home() {
@@ -83,9 +82,6 @@ export default function Home() {
   return (
     <div>
       <div className="pt-[67px] flex">
-        <div className="fixed top-[67px] left-0 w-[240px] h-[calc(100vh-67px)] p-container border-r border-slate-containerColor">
-          <Navbar />
-        </div>
         <div className="ml-[250px] flex-1 p-4">
           <h1 className="text-3xl font-bold">Home</h1>
           <p>Home 페이지 입니다.</p>
