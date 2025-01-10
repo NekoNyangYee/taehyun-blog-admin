@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { supabase } from "@components/lib/supabaseClient";
 import { useAuthStore } from "@components/app/store/authStore";
-import Header from "@components/components/Header";
 import Navbar from "@components/components/Navbar";
 import { User } from "@supabase/supabase-js";
 
