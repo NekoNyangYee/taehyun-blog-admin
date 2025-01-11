@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { persist } from "zustand/middleware";
 import { User } from "@supabase/supabase-js";
 
 type Session = {
@@ -10,33 +11,28 @@ type Session = {
 };
 
 interface AuthStore {
-    isAuthenticated: boolean;
-    isUserAuthenticated: boolean; // 사용자 인증 상태
-    isVerifyingAdmin: boolean; // 관리자 권한 확인 중
-    user: User | null;
-    session: Session | null;
-    storeSession: (session: Session) => void;
-    clearSession: () => void;
-    setVerifyingAdmin: (verifying: boolean) => void;
-    setUserAuthenticated: (authenticated: boolean) => void;
-    login: (user: User, session: Omit<Session, 'user'>) => void;
-    logout: () => void;
-};
+    isAuthenticated: boolean; // 세션 유효 여부
+    user: User | null; // 사용자 정보
+    session: Session | null; // 세션 정보
+    login: (user: User, session: Omit<Session, 'user'>) => void; // 로그인 처리
+    logout: () => void; // 로그아웃 처리
+}
 
-export const useAuthStore = create<AuthStore>((set) => ({
-    isAuthenticated: false,
-    isUserAuthenticated: false,
-    isVerifyingAdmin: false,
-    user: null,
-    session: null,
-    storeSession: (session) => set({ session }),
-    clearSession: () => set({ session: null }),
-    setVerifyingAdmin: (verifying) => set({ isVerifyingAdmin: verifying }),
-    setUserAuthenticated: (authenticated) => set({ isUserAuthenticated: authenticated }),
-    login: (user, session) => {
-        if (user) {
-            set({ isAuthenticated: true, isUserAuthenticated: true, user, session: { ...session, user } });
-        }
-    },
-    logout: () => set({ isAuthenticated: false, isUserAuthenticated: false, isVerifyingAdmin: false, user: null, session: null }),
-}));
+export const useAuthStore = create<AuthStore>()(
+    persist(
+        (set) => ({
+            isAuthenticated: false,
+            user: null,
+            session: null,
+            login: (user, session) => {
+                set({
+                    isAuthenticated: true,
+                    user,
+                    session: { ...session, user },
+                });
+            },
+            logout: () => set({ isAuthenticated: false, user: null, session: null }),
+        }),
+        { name: "auth-store" } // 상태를 localStorage에 저장
+    )
+);

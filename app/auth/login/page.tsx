@@ -3,11 +3,23 @@
 import { supabase } from "@components/lib/supabaseClient";
 import { newAddAdmin } from "@components/lib/util/loginUtil";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
+    const router = useRouter(); // useRouter 사용
+    const redirectUrl =
+        process.env.NODE_ENV === "development"
+            ? "http://localhost:3000"
+            : "https://taehyun-blog-admin.vercel.app";
+
     const handleSocialLogin = async (provider: "google" | "kakao") => {
         try {
-            const { error } = await supabase.auth.signInWithOAuth({ provider });
+            const { error } = await supabase.auth.signInWithOAuth({
+                provider,
+                options: {
+                    redirectTo: `${redirectUrl}/admin/dashboard`, // 로그인 후 리다이렉트 URL
+                },
+            });
 
             if (error) {
                 console.error("로그인 에러:", error.message);
@@ -29,6 +41,9 @@ export default function LoginPage() {
                 };
 
                 await newAddAdmin(userDataSession);
+
+                // 로그인 성공 후 /admin/dashboard로 이동
+                router.push("/admin/dashboard");
             }
         } catch (err) {
             console.error("handleSocialLogin 에러:", err);
@@ -48,7 +63,7 @@ export default function LoginPage() {
                         className="flex justify-center gap-2 border border-slate-containerColor bg-google p-button rounded-button"
                         onClick={() => handleSocialLogin("google")}
                     >
-                        <Image src="/google-logo.png" alt="kakao" width={24} height={24} />
+                        <Image src="/google-logo.png" alt="google" width={24} height={24} />
                         구글로 로그인
                     </button>
                     <button

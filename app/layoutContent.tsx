@@ -20,11 +20,13 @@ export default function LayoutContent({
 
   return (
     <>
-      <Header />
       {isLoggedIn && (
-        <div className="fixed top-[67px] left-0 w-[240px] h-[calc(100vh-67px)] p-container border-r border-slate-containerColor">
-          <Navbar />
-        </div>
+        <>
+          <Header />
+          <div className="fixed top-[67px] left-0 w-[240px] h-[calc(100vh-67px)] p-container border-r border-slate-containerColor">
+            <Navbar />
+          </div>
+        </>
       )}
       <main className={isLoggedIn ? "ml-[250px]" : ""}>{children}</main>
     </>
